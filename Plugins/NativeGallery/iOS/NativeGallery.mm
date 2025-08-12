@@ -5,7 +5,7 @@
 #import <ImageIO/ImageIO.h>
 #import <PhotosUI/PhotosUI.h>
 
-extern UIViewController* UnityGetGLViewController();
+extern "C" UIViewController* NGTopViewController();
 
 #define CHECK_IOS_VERSION( version )  ([[[UIDevice currentDevice] systemVersion] compare:version options:NSNumericSearch] != NSOrderedAscending)
 
@@ -131,7 +131,7 @@ static BOOL pickingMultipleFiles = NO;
 		if( status == PHAuthorizationStatusNotDetermined )
 			[self requestPermission:YES permissionFreeMode:NO];
 		else if( status == PHAuthorizationStatusRestricted )
-			[[PHPhotoLibrary sharedPhotoLibrary] presentLimitedLibraryPickerFromViewController:UnityGetGLViewController()];
+			[[PHPhotoLibrary sharedPhotoLibrary] presentLimitedLibraryPickerFromViewController:NGTopViewController()];
 	}
 }
 
@@ -329,7 +329,7 @@ static BOOL pickingMultipleFiles = NO;
 		
 		imagePickerNew = [[PHPickerViewController alloc] initWithConfiguration:config];
 		imagePickerNew.delegate = (id) self;
-		[UnityGetGLViewController() presentViewController:imagePickerNew animated:YES completion:^{ imagePickerState = 0; }];
+		[NGTopViewController() presentViewController:imagePickerNew animated:YES completion:^{ imagePickerState = 0; }];
 	}
 	else
 	{
@@ -356,7 +356,7 @@ static BOOL pickingMultipleFiles = NO;
 			imagePicker.videoExportPreset = AVAssetExportPresetPassthrough;
 		}
 		
-		UIViewController *rootViewController = UnityGetGLViewController();
+		UIViewController *rootViewController = NGTopViewController();
 		if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) // iPad
 		{
 			imagePicker.modalPresentationStyle = UIModalPresentationPopover;
@@ -380,7 +380,7 @@ static BOOL pickingMultipleFiles = NO;
 	
 	if( imagePicker != nil )
 	{
-		if( imagePickerState == 1 || [imagePicker presentingViewController] == UnityGetGLViewController() )
+		if( imagePickerState == 1 || [imagePicker presentingViewController] == NGTopViewController() )
 			return 1;
 		else
 		{
@@ -392,7 +392,7 @@ static BOOL pickingMultipleFiles = NO;
 	{
 		if( imagePickerNew == nil )
 			return 0;
-		else if( imagePickerState == 1 || [imagePickerNew presentingViewController] == UnityGetGLViewController() )
+		else if( imagePickerState == 1 || [imagePickerNew presentingViewController] == NGTopViewController() )
 			return 1;
 		else
 		{
