@@ -810,7 +810,11 @@ public static class NativeGallery
 			while( !asyncOperation.isDone )
 				await Task.Yield();
 
+#if UNITY_2020_3_OR_NEWER
 			if( www.result != UnityWebRequest.Result.Success )
+#else
+			if( !string.IsNullOrWhiteSpace(www.error) )
+#endif
 				Debug.LogWarning( "Couldn't use UnityWebRequest to load image, falling back to LoadImage: " + www.error );
 			else
 				result = DownloadHandlerTexture.GetContent( www );
