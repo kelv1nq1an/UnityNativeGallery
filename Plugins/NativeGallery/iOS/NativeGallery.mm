@@ -329,7 +329,7 @@ static BOOL pickingMultipleFiles = NO;
 		
 		imagePickerNew = [[PHPickerViewController alloc] initWithConfiguration:config];
 		imagePickerNew.delegate = (id) self;
-		[NGTopViewController() presentViewController:imagePickerNew animated:YES completion:^{ imagePickerState = 0; }];
+		[NGTopViewController() presentViewController:imagePickerNew animated:YES completion:nil];
 	}
 	else
 	{
@@ -369,7 +369,7 @@ static BOOL pickingMultipleFiles = NO;
 			}
 		}
 
-		[rootViewController presentViewController:imagePicker animated:YES completion:^{ imagePickerState = 0; }];
+		[rootViewController presentViewController:imagePicker animated:YES completion:nil];
 	}
 }
 
